@@ -5,22 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="Calculator" Height="80" Width="720" Margin="5">
+        Title="Calculator" Height="300" Width="700" Margin="5">
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
     </Window.InputBindings>
-    <StackPanel Orientation="Horizontal" FocusManager.FocusedElement="{Binding ElementName=Textbox}">
-        <TextBox x:Name="Textbox" Width="400" Height="20" Margin="5"
-                 Text="{Binding Calculation, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="False">
-            <TextBox.InputBindings>
-                <KeyBinding Command="{Binding CalculateCommand}" Key="Return" />
-                <KeyBinding Command="{Binding ClearCommand}" Key="R" Modifiers="Control" />
-                <KeyBinding Command="{Binding CopyCommand}" Key="C" Modifiers="Control" />
-            </TextBox.InputBindings>
-        </TextBox>
-        <Button Width="100" Height="20" Margin="5" Content="Calculate (Return)" Command="{Binding CalculateCommand}" />
-        <Button Width="80" Height="20" Margin="5" Content="Copy (Ctrl+C)" Command="{Binding CopyCommand}" />
-        <Button Width="80" Height="20" Margin="5" Content="Clear (Ctrl+R)" Command="{Binding ClearCommand}" />
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" FocusManager.FocusedElement="{Binding ElementName=Textbox}">
+            <TextBox x:Name="Textbox" Width="400" Height="20" Margin="5"
+                     Text="{Binding Calculation, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="False">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding CalculateCommand}" Key="Return" />
+                    <KeyBinding Command="{Binding ClearCommand}" Key="R" Modifiers="Control" />
+                    <KeyBinding Command="{Binding CopyCommand}" Key="C" Modifiers="Control" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Width="40" Height="Auto" Margin="5" Command="{Binding CalculateCommand}" ToolTip="Calculate the content of the Textblock. Shortcut: Return.">
+                <TextBlock TextAlignment="Center">=</TextBlock>
+            </Button>
+            <Button Width="40" Height="Auto" Margin="5" Command="{Binding CopyCommand}" ToolTip="Copy the full content of the Textblock. Shortcut: Ctrl + C.">
+                <TextBlock TextAlignment="Center">Copy</TextBlock>
+            </Button>
+            <Button Width="40" Height="Auto" Margin="5" Command="{Binding ClearCommand}" ToolTip="Clear the content of the Textblock. Shortcut: Ctrl + R.">
+                <TextBlock TextAlignment="Center">Clear</TextBlock>
+            </Button>
+            <CheckBox Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Show Keyboard" IsChecked="{Binding ShowKeyboard}"/>
+        </StackPanel>
+        <Grid Visibility="{Binding ShowKeyboard, Converter={local:BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
+            <Button Margin="1" Grid.Column="0" Grid.Row="0" Content="x²" Command="{Binding SquareCommand}"/>
+            <Button Margin="1" Grid.Column="0" Grid.Row="1" Content="√" Command="{Binding SquareRootCommand}"/>
+            <Button Margin="1" Grid.Column="0" Grid.Row="2" Content="π" Command="{Binding PiCommand}"/>
+            <Button Margin="1" Grid.Column="0" Grid.Row="3" Content="n!" Command="{Binding FacultyCommand}"/>
+            <Button Margin="1" Grid.Column="0" Grid.Row="4" Content="(" Command="{Binding OpenParenthesisCommand}"/>
+            <Button Margin="1" Grid.Column="1" Grid.Row="0" Content="^" Command="{Binding PowCommand}"/>
+            <Button Margin="1" Grid.Column="1" Grid.Row="1" Content="7" Background="Gray" Command="{Binding SevenCommand}"/>
+            <Button Margin="1" Grid.Column="1" Grid.Row="2" Content="4" Background="Gray" Command="{Binding FourCommand}"/>
+            <Button Margin="1" Grid.Column="1" Grid.Row="3" Content="1" Background="Gray" Command="{Binding OneCommand}"/>
+            <Button Margin="1" Grid.Column="1" Grid.Row="4" Content=")" Command="{Binding CloseParenthesisCommand}"/>
+            <Button Margin="1" Grid.Column="2" Grid.Row="0" Content="sin" Command="{Binding SinCommand}"/>
+            <Button Margin="1" Grid.Column="2" Grid.Row="1" Content="8" Background="Gray" Command="{Binding EightCommand}"/>
+            <Button Margin="1" Grid.Column="2" Grid.Row="2" Content="5" Background="Gray" Command="{Binding FiveCommand}"/>
+            <Button Margin="1" Grid.Column="2" Grid.Row="3" Content="2" Background="Gray" Command="{Binding TwoCommand}"/>
+            <Button Margin="1" Grid.Column="2" Grid.Row="4" Content="0" Background="Gray" Command="{Binding ZeroCommand}"/>
+            <Button Margin="1" Grid.Column="3" Grid.Row="0" Content="cos" Command="{Binding CosCommand}"/>
+            <Button Margin="1" Grid.Column="3" Grid.Row="1" Content="9" Background="Gray" Command="{Binding NineCommand}"/>
+            <Button Margin="1" Grid.Column="3" Grid.Row="2" Content="6" Background="Gray" Command="{Binding SixCommand}"/>
+            <Button Margin="1" Grid.Column="3" Grid.Row="3" Content="3" Background="Gray" Command="{Binding ThreeCommand}"/>
+            <Button Margin="1" Grid.Column="3" Grid.Row="4" Content="." Command="{Binding PointCommand}"/>
+            <Button Margin="1" Grid.Column="4" Grid.Row="0" Content="tan" Command="{Binding TanCommand}"/>
+            <Button Margin="1" Grid.Column="4" Grid.Row="1" Content="÷" Command="{Binding DivideCommand}"/>
+            <Button Margin="1" Grid.Column="4" Grid.Row="2" Content="×" Command="{Binding MultiplyCommand}"/>
+            <Button Margin="1" Grid.Column="4" Grid.Row="3" Content="-" Command="{Binding MinusCommand}"/>
+            <Button Margin="1" Grid.Column="4" Grid.Row="4" Content="+" Command="{Binding AddCommand}"/>
+        </Grid>
     </StackPanel>
 </Window>
